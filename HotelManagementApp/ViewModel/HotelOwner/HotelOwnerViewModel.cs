@@ -2,6 +2,7 @@
 using HotelManagementApp.Model;
 using HotelManagementApp.View.HotelOwner;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -48,9 +49,16 @@ namespace HotelManagementApp.ViewModel.HotelOwner
         {
             try
             {
-                AddNewEmployeeView addNewEmployeeView = new AddNewEmployeeView();
-                addNewEmployeeView.ShowDialog();
-                hotelOwnerView.Close();
+                if (!db.LoadFloorNumbers().Any())
+                {
+                    MessageBox.Show("You can not create a new employee. There is no created manager at the moment. Please try later.");
+                }
+                else
+                {
+                    AddNewEmployeeView addNewEmployeeView = new AddNewEmployeeView();
+                    addNewEmployeeView.ShowDialog();
+                    hotelOwnerView.Close();
+                }            
             }
             catch (Exception ex)
             {

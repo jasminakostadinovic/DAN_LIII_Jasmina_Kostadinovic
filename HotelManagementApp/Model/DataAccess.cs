@@ -136,16 +136,7 @@ namespace HotelManagementApp.Model
 				return false;
 			}
 		}
-
-		internal void AddNewManager(tblManager manager)
-		{
-			using (var conn = new HotelManagementEntities())
-			{
-				conn.tblManagers.Add(manager);
-				conn.SaveChanges();
-			}
-		}
-
+		
 		internal bool IsManagerOnTheFloor(string floorNumber)
 		{
 			using (var conn = new HotelManagementEntities())
@@ -193,6 +184,23 @@ namespace HotelManagementApp.Model
 			catch (Exception)
 			{
 				return new List<string>();
+			}
+		}
+
+		internal bool TryAddNewManager(tblManager manager)
+		{
+			try
+			{
+				using (var conn = new HotelManagementEntities())
+				{
+					conn.tblManagers.Add(manager);
+					conn.SaveChanges();
+					return true;
+				}
+			}
+			catch (Exception)
+			{
+				return false;
 			}
 		}
 	}

@@ -11,7 +11,7 @@ namespace HotelManagementApp.View.HotelOwner
         public AddNewManagerView()
         {
             InitializeComponent();
-            //this.DataContext = new AddNewManagerViewModel(this);
+            this.DataContext = new AddNewManagerViewModel(this, new ValidatedUserData());
         }
     }
 }

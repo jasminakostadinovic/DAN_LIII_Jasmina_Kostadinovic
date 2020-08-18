@@ -219,6 +219,8 @@ namespace HotelManagementApp.ViewModel.HotelOwner
         protected override void ExitExecute()
         {
             IsAddedNewEmployee = false;
+            var ownerView = new HotelOwnerView();
+            ownerView.Show();
             addNewEmployeeView.Close();
         }
         #endregion
