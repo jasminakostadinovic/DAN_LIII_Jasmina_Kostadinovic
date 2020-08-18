@@ -1,0 +1,81 @@
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].HotelManagement'))
+DROP DATABASE HotelManagement;
+
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE NAME = 'HotelManagement')
+	CREATE DATABASE HotelManagement;
+
+GO
+USE HotelManagement;
+
+--Droping tables
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblManagers')
+	DROP TABLE tblManagers
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblEmployees')
+	DROP TABLE tblEmployees
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblUserData')
+	DROP TABLE tblUserData
+
+--Creating tables
+
+CREATE TABLE tblUserData
+	(UserDataID int primary key identity(1,1),
+	GivenName nvarchar(50) not null,
+	Surname nvarchar(50) not null,
+	DateOfBirth datetime not null, 
+	Email nvarchar(50)not null,
+	Username nvarchar(50)not null unique,
+	[Password] char(1000)not null);
+
+CREATE TABLE tblEmployees
+	(EmployeeID int primary key identity(1,1),
+	UserDataID int foreign key(UserDataID) references tblUserData(UserDataID) not null,
+	Salary nvarchar(50),
+	Position nvarchar(50)not null,
+	FloorNumber nvarchar(50)not null,
+	Citizenship nvarchar(50),
+	Sex nvarchar(50));
+
+CREATE TABLE tblManagers
+	(ManagerID int primary key identity(1,1),
+	UserDataID int foreign key(UserDataID) references tblUserData(UserDataID) not null,
+	WorkExperience int not null,
+	FloorNumber nvarchar(50)not null,
+	ProfessionalQualificationsLevel nvarchar(5));
+
+
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[vwEmployees]'))
+DROP VIEW [dbo].[vwEmployees]
+
+--creating view	
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[vwEmployees]
+AS
+SELECT   
+  TOP (100) PERCENT 
+                      dbo.tblUserData.GivenName + ' ' + dbo.tblUserData.Surname AS [Employee Name], 
+					  dbo.tblUserData.DateOfBirth AS [Date Of Birth],
+					  dbo.tblUserData.Email,
+	   			      dbo.tblEmployees.Position,
+					  dbo.tblEmployees.Salary,
+					  dbo.tblEmployees.Citizenship,
+                      dbo.tblEmployees.FloorNumber,
+                      dbo.tblEmployees.Sex,
+					  dbo.tblEmployees.EmployeeID,
+					  dbo.tblUserData.UserDataID
+					
+FROM                  dbo.tblEmployees INNER JOIN
+                      dbo.tblUserData ON dbo.tblEmployees.UserDataID = dbo.tblUserData.UserDataID;
+
+GO
+
+
