@@ -104,6 +104,13 @@ namespace HotelManagementApp.ViewModel.Manager
                         getNumberView.Show();
                         managerView.Close();
                     }
+                    else
+                    {
+                        GetNumberFromManagerView getNumberView = new GetNumberFromManagerView(Employee.EmployeeID, managerId);
+                        getNumberView.Show();
+                        managerView.Close();
+
+                    }
                 }
             }
             catch (Exception ex)
