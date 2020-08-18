@@ -126,6 +126,7 @@ namespace HotelManagementApp.ViewModel
 						employeeView.Show();
 						return;
 					}
+					return;
 				}
 			}
 			else if (!dataAccess.IsCorrectUser(userName, password))
