@@ -113,7 +113,8 @@ namespace HotelManagementApp.ViewModel
 					if(dataAccess.GetTypeOfUser(userDataId) == nameof(tblManager))
 					{
 						var manager = dataAccess.LoadManagerByUsername(UserName);
-						ManagerView managerView = new ManagerView(manager);
+						int managerId = manager.ManagerID;
+						ManagerView managerView = new ManagerView(managerId);
 						loginView.Close();
 						managerView.Show();
 						return;

@@ -68,6 +68,7 @@
     <Compile Include="DataValidations\SecurePasswordHasher.cs" />
     <Compile Include="Interfaces\IUserData.cs" />
     <Compile Include="Model\DataAccess.cs" />
+    <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\HotelManagementModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +84,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HotelManagementModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\PositionsEnum.cs" />
+    <Compile Include="Model\SexTypesEnum.cs" />
     <Compile Include="Model\tblEmployee.cs">
       <DependentUpon>HotelManagementModel.tt</DependentUpon>
     </Compile>
@@ -103,6 +106,7 @@
     <Compile Include="ViewModel\HotelOwner\ValidatedUserData.cs" />
     <Compile Include="ViewModel\LogoutViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\Manager\GetNumberFromManagerViewModel.cs" />
     <Compile Include="ViewModel\Manager\ManagerViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WarningViewModel.cs" />
@@ -117,6 +121,9 @@
     </Compile>
     <Compile Include="View\HotelOwner\HotelOwnerView.xaml.cs">
       <DependentUpon>HotelOwnerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Manager\GetNumberFromManagerView.xaml.cs">
+      <DependentUpon>GetNumberFromManagerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Manager\ManagerView.xaml.cs">
       <DependentUpon>ManagerView.xaml</DependentUpon>
@@ -150,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HotelOwner\HotelOwnerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Manager\GetNumberFromManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

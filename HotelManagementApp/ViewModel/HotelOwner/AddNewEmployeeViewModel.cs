@@ -19,9 +19,8 @@ namespace HotelManagementApp.ViewModel.HotelOwner
         private string floorNumber;
         private string citizenship;
         private string sex;
-        private string[] sexTypes = new string[] { "m", "f", "x" };
-        private string[] positions = new string[] {"cleaning",
-"cooking", "monitoring", "reporting" };
+        private Array sexTypes = Enum.GetValues(typeof(SexTypesEnum));
+        private Array positions = Enum.GetValues(typeof(PositionsEnum));
         private List<string> floorNumbers;
         #endregion
 
@@ -106,7 +105,7 @@ namespace HotelManagementApp.ViewModel.HotelOwner
             }
         }
 
-        public string[] SexTypes
+        public Array SexTypes
         {
             get
             {
@@ -119,7 +118,7 @@ namespace HotelManagementApp.ViewModel.HotelOwner
                 OnPropertyChanged(nameof(SexTypes));
             }
         }
-        public string[] Positions
+        public Array Positions
         {
             get
             {
@@ -191,6 +190,7 @@ namespace HotelManagementApp.ViewModel.HotelOwner
                     employee.Position = Position;
                     employee.FloorNumber = FloorNumber;
                     employee.Sex = Sex;
+                    employee.Citizenship = Citizenship;
                     IsAddedNewEmployee = db.TryAddNewEmployee(employee);
                     if (!IsAddedNewEmployee)
                     {

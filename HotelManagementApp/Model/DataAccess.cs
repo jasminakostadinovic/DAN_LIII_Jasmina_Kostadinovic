@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace HotelManagementApp.Model
 {
@@ -29,6 +30,23 @@ namespace HotelManagementApp.Model
 			}
 		}
 
+		internal List<vwEmployee> LoadEmployees(string floor)
+		{
+			try
+			{
+				using (var conn = new HotelManagementEntities())
+				{
+					if (conn.tblEmployees.Any(x => x.FloorNumber == floor))
+						return conn.vwEmployees.Where(x => x.FloorNumber == floor).ToList();
+					return new List<vwEmployee>();
+				}
+			}
+			catch (Exception)
+			{
+				return new List<vwEmployee>();
+			}
+		}
+
 		internal string GetTypeOfUser(int userDataId)
 		{
 			try
@@ -45,6 +63,17 @@ namespace HotelManagementApp.Model
 			catch (Exception)
 			{
 				return null;
+			}
+		}
+
+		internal tblManager LoadManagerById(int managerId)
+		{
+
+			using (var conn = new HotelManagementEntities())
+			{
+
+				return conn.tblManagers.FirstOrDefault(x => x.ManagerID == managerId);
+
 			}
 		}
 
@@ -120,6 +149,28 @@ namespace HotelManagementApp.Model
 			}
 		}
 
+		internal bool TryUpdateEmloyeeSalary(int employeeId, string salary)
+		{
+			try
+			{
+				using (var conn = new HotelManagementEntities())
+				{
+					var user = conn.tblEmployees.FirstOrDefault(x => x.EmployeeID == employeeId);
+					if(user != null)
+					{
+						user.Salary = salary;
+						conn.SaveChanges();
+						return true;
+					}
+					return false;
+				}
+			}
+			catch (Exception)
+			{
+				return false;
+			}
+		}
+
 		internal bool TryAddNewEmployee(tblEmployee employee)
 		{
 			try
@@ -136,7 +187,25 @@ namespace HotelManagementApp.Model
 				return false;
 			}
 		}
-		
+
+		internal string LoadEmployeeSex(int employeeId)
+		{
+			try
+			{
+				using (var conn = new HotelManagementEntities())
+				{
+					var user = conn.tblEmployees.FirstOrDefault(x => x.EmployeeID == employeeId);
+					if (user != null)
+						return user.Sex;
+					return null;
+				}
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
+
 		internal bool IsManagerOnTheFloor(string floorNumber)
 		{
 			using (var conn = new HotelManagementEntities())
